@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 
 
@@ -48,12 +48,17 @@ class App extends Component {
   render() {
     // inline styles
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: '#db3236',
+      color: 'white',
       font: 'inherit',
       padding: '8px',
       cursor: 'pointer',
-      border: '1px solid royalblue',
-      borderRadius: '3.5px'
+      borderRadius: '3.5px',
+      border: '2px solid #db3236',
+      ':hover': {
+        backgroundColor: '#c42d30',
+        border: '2px solid #c42d30'
+      }
     };
 
     let persons = null;
@@ -71,19 +76,39 @@ class App extends Component {
           })}
         </div>
       );
+
+      style.backgroundColor = '#3cba54';
+      style.border = '2px solid #3cba54';
+      style[':hover'] = {
+        backgroundColor: '#35a54b',
+        border: '2px solid #35a54b'
+      }
+    }
+
+    // let classes = ['red', 'bold'].join(' '); //=> 'red bold'
+    // ====> dynamically assign and edit classes: ====>
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red'); // classes = ['red']
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('capitalize'); // classes = ['red', 'capitalize']
     }
 
     return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Switch Name
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <h1 className={classes.join(' ')}>This is really working</h1>
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>Toggle Persons
         </button>
-        {persons}
-      </div>
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
-}
 
-export default App;
+}
+export default Radium(App);
