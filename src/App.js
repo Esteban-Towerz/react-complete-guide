@@ -7,42 +7,42 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Robert', age: '36' },
-      { name: 'Jack', age: '53' },
-      { name: 'Sergio', age: '26' }
+      { id: '1*3o', name: 'Robert', age: '36' },
+      { id: '25dl', name: 'Jack', age: '53' },
+      { id: '$m9p', name: 'Sergio', age: '26' }
     ],
     otherState: 'some other value',
-    showPersons: false
+    showPersons: false,
   }
 
-  switchNameHandler = (newName) => { //method name convention
-    //DON'T DO THIS: this.state.person[0].name = 'Maximilian';
-    this.setState({
-      persons: [
-        { name: newName, age: '24' },
-        { name: 'Sergio', age: '25' },
-        { name: 'Juan', age: '26' }
-      ]
-    })
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex],
+    };
+    // const person = Object.assign({}, this.state.persons[personIndex]) other way
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons })
   }
 
-  nameChangeHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: 'Oscar', age: '24' },
-        { name: event.target.value, age: '25' },
-        { name: 'Juan', age: '26' }
-      ]
-    })
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
   }
-
-  // usernameHandler = (event) => {
-  //   this.setState({ username: event.target.value })
-  // }
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({showPersons: !doesShow});
+    this.setState({ showPersons: !doesShow });
   }
 
   render() {
@@ -54,24 +54,21 @@ class App extends Component {
       cursor: 'pointer',
       border: '1px solid royalblue',
       borderRadius: '3.5px'
-    }
+    };
 
     let persons = null;
 
-    if ( this.state.showPersons ) {
+    if (this.state.showPersons) {
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age} />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, 'Erick')}
-            changed={this.nameChangeHandler}>My Hobbies: Workout</Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
+          {this.state.persons.map((person, index) => {
+            return <Person
+              click={() => this.deletePersonHandler(index)}
+              name={person.name}
+              age={person.age}
+              key={person.id}
+              changed={(event) => this.nameChangeHandler(event, person.id)} />
+          })}
         </div>
       );
     }
@@ -90,26 +87,3 @@ class App extends Component {
 }
 
 export default App;
-
-/* <button onClick={() => this.switchNameHandler('Alejandro!!')}>Switch Name</button> = inefficient!
-click = { this.switchNameHandler.bind(this, 'Erick') } > My Hobbies: Workout</Person > use this better!*/
-
-/* <UserInput
-      changed={this.usernameHandler}
-      currentName={this.state.username} />
-    <UserOutput userName={this.state.username} /> */
-
-      // { this.state.showPersons ?
-      //   <div>
-      //     <Person
-      //       name={this.state.persons[0].name}
-      //       age={this.state.persons[0].age} />
-      //     <Person
-      //       name={this.state.persons[1].name}
-      //       age={this.state.persons[1].age}
-      //       click={this.switchNameHandler.bind(this, 'Erick')}
-      //       changed={this.nameChangeHandler}>My Hobbies: Workout</Person>
-      //     <Person
-      //       name={this.state.persons[2].name}
-      //       age={this.state.persons[2].age} />
-      //   </div> : null
