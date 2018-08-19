@@ -6,8 +6,7 @@
 * [x] Debugging React Apps
 * [x] Diving Deeper into Components & React Internals
 
-![resize2](https://user-images.githubusercontent.com/25851867/44313244-75ceab80-a3ca-11e8-8a23-2c05d8886d37.gif)
-
+![react-practice](https://user-images.githubusercontent.com/25851867/44313654-b847b680-a3d1-11e8-9ae3-74f3b1cfb190.gif)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
