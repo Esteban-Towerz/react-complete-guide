@@ -1,0 +1,29 @@
+.red {
+  color: red;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.Cockpit button {
+  background-color: #3cba54;
+  padding: 16px;
+  font: inherit;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.Cockpit button:hover {
+  background-color: rgb(46, 143, 63);
+}
+
+.Cockpit button.Red {
+  background-color: #db3236;
+}
+
+.Cockpit button.Red:hover {
+  background-color: #c42d30;
+}

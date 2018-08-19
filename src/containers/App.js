@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 // import Radium, { StyleRoot } from 'radium';
-import Person from './Person/Person';
 
 
 class App extends Component {
@@ -46,68 +47,31 @@ class App extends Component {
   }
 
   render() {
-    // inline styles
-    const style = {
-      backgroundColor: '#db3236',
-      color: 'white',
-      font: 'inherit',
-      padding: '8px',
-      cursor: 'pointer',
-      borderRadius: '3.5px',
-      border: '2px solid #db3236'
-      // ':hover': {
-      //   backgroundColor: '#c42d30',
-      //   border: '2px solid #c42d30'
-      // }
-    };
-
     let persons = null;
 
     if (this.state.showPersons) {
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangeHandler(event, person.id)} />
-          })}
-        </div>
-      );
-
-      style.backgroundColor = '#3cba54';
-      style.border = '2px solid #3cba54';
+      persons = <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangeHandler} />;
       // style[':hover'] = {
       //   backgroundColor: '#35a54b',
       //   border: '2px solid #35a54b'
       // }
     }
 
-    // let classes = ['red', 'bold'].join(' '); //=> 'red bold'
-    // ====> dynamically assign and edit classes: ====>
-    const classes = [];
-    if (this.state.persons.length <= 2) {
-      classes.push('red'); // classes = ['red']
-    }
-    if (this.state.persons.length <= 1) {
-      classes.push('capitalize'); // classes = ['red', 'capitalize']
-    }
-
     return (
       // <StyleRoot>
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <h1 className={classes.join(' ')}>This is really working</h1>
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons
-        </button>
+      <div className={classes.App}>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
         {persons}
       </div>
       // </StyleRoot>
     );
+    // return React.createElement('div', {className: 'App'}, React.
   }
 
 }

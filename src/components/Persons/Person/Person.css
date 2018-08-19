@@ -11,4 +11,14 @@
 
 .Person:hover {
     transform: translateY(-4px);
+    -webkit-box-shadow: 0 8px 6px -4px #ccc;
+       -moz-box-shadow: 0 8px 6px -4px #ccc;
+            box-shadow: 0 8px 6px -4px #ccc;
+    cursor: pointer;
+}
+
+@media (min-width: 500px) {
+    .Person {
+       width: 450px;
+   }
 }
