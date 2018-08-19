@@ -6,7 +6,7 @@
 * [x] Debugging React Apps
 * [x] Diving Deeper into Components & React Internals
 
-![ezgif com-resize](https://user-images.githubusercontent.com/25851867/44313194-8cc0ce00-a3c9-11e8-9c94-a3a7d7825f2e.gif)
+![resize2](https://user-images.githubusercontent.com/25851867/44313244-75ceab80-a3ca-11e8-8a23-2c05d8886d37.gif)
 
 
 
