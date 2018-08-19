@@ -8,7 +8,6 @@
 
 <a href="https://imgflip.com/gif/2g5p23"><img src="https://i.imgflip.com/2g5p23.gif" title="made at imgflip.com"/></a>
 
-
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 ## Project Requirements
