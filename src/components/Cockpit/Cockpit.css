@@ -6,7 +6,7 @@
   text-transform: capitalize;
 }
 
-.Cockpit button {
+.Button {
   background-color: #3cba54;
   padding: 16px;
   font: inherit;
@@ -16,14 +16,14 @@
   cursor: pointer;
 }
 
-.Cockpit button:hover {
+.Button:hover {
   background-color: rgb(46, 143, 63);
 }
 
-.Cockpit button.Red {
+.Button.Red {
   background-color: #db3236;
 }
 
-.Cockpit button.Red:hover {
+.Button.Red:hover {
   background-color: #c42d30;
 }

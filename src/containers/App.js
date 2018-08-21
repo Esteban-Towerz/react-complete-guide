@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 // import Radium, { StyleRoot } from 'radium';
 
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     console.log('[App.js] inside constructor', props);
@@ -26,6 +27,21 @@ class App extends Component {
 
   componentDidMount() {
     console.log(('[App.js] inside componentDidMount'));
+  }
+
+  // to check whether this single props which is important to you did change or not and ignore all the other ones:
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[UPDATE App.js] inside shouldComponentUpdate', nextProps, nextState);
+  //   return nextState.person !== this.state.persons ||
+  //     nextState.showPersons !== this.state.showPersons;
+  // }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('[UPDATE App.js] inside componentWillUpdate', nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+    console.log('[UPDATE App.js] inside componentDidUpdate');
   }
 
 
@@ -76,14 +92,15 @@ class App extends Component {
 
     return (
       // <StyleRoot>
-      <div className={classes.App}>
+      <WithClass classes={classes.App}>
+        <button onClick={() => { this.setState({ showPersons: true }) }}>Show Persons</button>
         <Cockpit
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler} />
         {persons}
-      </div>
+      </WithClass>
       // </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.
