@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Person.css';
-// import Radium from 'radium';
 
-const person = (props) => {
-    // const style = {
-    //     '@media (min-width: 500px)': {
-    //         width: '450px'
-    //     }
-    // }
+class Person extends Component {
+    constructor(props) {
+        super(props);
+        console.log('[Person.js] inside constructor', props);
+    }
 
-    // assign it in the div => style={style}
-    return (
-        <div className={classes.Person}>
-            <p onClick={props.click}>I'm {props.name} and I have {props.age} years old! </p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name} />
-        </div>
-    );
-};
+    componentWillMount() {
+        console.log(('[Person.js] inside componentWillMount'));
+    }
 
-export default person; // Radium(person)
+    componentDidMount() {
+        console.log(('[Person.js] inside componentDidMount'));
+    }
+
+    render() {
+        console.log('[Person.js] inside render()');
+        return (
+            <div className={classes.Person}>
+                <p onClick={this.props.click}>I'm {this.props.name} and I have {this.props.age} years old! </p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name} />
+            </div>
+        );
+    }
+}
+
+export default Person;
