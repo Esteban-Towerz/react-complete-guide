@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import WithClass from '../hoc/WithClass';
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass';
 // import Radium, { StyleRoot } from 'radium';
 
 
@@ -12,12 +13,13 @@ class App extends PureComponent {
     console.log('[App.js] inside constructor', props);
     this.state = {
       persons: [
-        { id: '1*3o', name: 'Robert', age: '36' },
-        { id: '25dl', name: 'Jack', age: '53' },
-        { id: '$m9p', name: 'Sergio', age: '26' }
+        { id: '1*3o', name: 'Robert', age: 36 },
+        { id: '25dl', name: 'Jack', age: 53 },
+        { id: '$m9p', name: 'Sergio', age: 26 }
       ],
       otherState: 'some other value',
       showPersons: false,
+      toggleClicked: 0
     };
   }
 
@@ -72,7 +74,12 @@ class App extends PureComponent {
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({ showPersons: !doesShow });
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      }
+    });
   }
 
   render() {
@@ -92,7 +99,7 @@ class App extends PureComponent {
 
     return (
       // <StyleRoot>
-      <WithClass classes={classes.App}>
+      <Aux>
         <button onClick={() => { this.setState({ showPersons: true }) }}>Show Persons</button>
         <Cockpit
           appTitle={this.props.title}
@@ -100,11 +107,11 @@ class App extends PureComponent {
           persons={this.state.persons}
           clicked={this.togglePersonsHandler} />
         {persons}
-      </WithClass>
+      </Aux>
       // </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.
   }
 
 }
-export default App; //Radium(App)
+export default withClass(App, classes.App); //Radium(App)
