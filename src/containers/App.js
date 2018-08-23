@@ -19,7 +19,8 @@ class App extends PureComponent {
       ],
       otherState: 'some other value',
       showPersons: false,
-      toggleClicked: 0
+      toggleClicked: 0,
+      authenticated: false
     };
   }
 
@@ -40,6 +41,23 @@ class App extends PureComponent {
 
   componentWillUpdate(nextProps, nextState) {
     console.log('[UPDATE App.js] inside componentWillUpdate', nextProps, nextState);
+  }
+
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(
+      "[UPDATE app.js] Inside getDerivedStateFromProps",
+      nextProps,
+      prevState
+    );
+
+    return prevState;
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log(
+      "[UPDATE app.js] Inside getDerivedStateFromProps"
+    );
   }
 
   componentDidUpdate() {
@@ -82,6 +100,10 @@ class App extends PureComponent {
     });
   }
 
+  loginHandler = () => {
+    this.setState({ authenticated: true })
+  }
+
   render() {
     console.log('[Persons.js] inside render()');
     let persons = null;
@@ -90,7 +112,8 @@ class App extends PureComponent {
       persons = <Persons
         persons={this.state.persons}
         clicked={this.deletePersonHandler}
-        changed={this.nameChangeHandler} />;
+        changed={this.nameChangeHandler}
+        isAuthenticated={this.state.authenticated} />;
       // style[':hover'] = {
       //   backgroundColor: '#35a54b',
       //   border: '2px solid #35a54b'
@@ -105,6 +128,7 @@ class App extends PureComponent {
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
+          login={this.loginHandler}
           clicked={this.togglePersonsHandler} />
         {persons}
       </Aux>
